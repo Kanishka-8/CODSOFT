@@ -1,0 +1,47 @@
+<form id="signup-form">
+  <input type="text" id="name" placeholder="UserName" required>
+  <input type="email" id="email" placeholder="Email address" required>
+  <input type="password" id="password" placeholder="Password" required>
+  <input type="password" id="confirm-password" placeholder="Confirm Password" required>
+  <button type="submit">Sign Up</button>
+</form>
+
+<script>
+const signupForm = document.getElementById('signup-form');
+
+signupForm.addEventListener('submit', (event) => {
+  event.preventDefault(); 
+  if (!validateName(document.getElementById('name').value)) {
+    console.log('Invalid name');
+    return;
+  }
+
+  if (!validateEmail(document.getElementById('email').value)) {
+    console.log('Invalid email address');
+    return;
+  }
+
+  if (!validatePassword(document.getElementById('password').value)) {
+    console.log('Weak password');
+    return;
+  }
+
+  if (document.getElementById('password').value !== document.getElementById('confirm-password').value) {
+    console.log('Passwords do not match');
+    return;
+  }
+  console.log('Form submitted successfully!');
+});
+
+function validateName(name) {
+  return name.length > 0; // Basic validation
+}
+
+function validateEmail(email) {
+  return email.match(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/);
+}
+
+function validatePassword(password) {
+  return password.length >= 8 && password.match(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/);
+}
+</script>
